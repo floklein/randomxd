@@ -16,15 +16,22 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Tailwind CSS v4** via `@tailwindcss/postcss` (uses `@import "tailwindcss"` and `@theme` directive, not a tailwind.config file)
 - **Geist** font family (sans + mono) loaded via `next/font/google`
 - **ESLint 9** with `eslint-config-next` (no Prettier)
+- **axios** + **cheerio** for Letterboxd scraping
+- **TMDB API** for movie posters
 
 ## Architecture
 
-This is a fresh Next.js App Router project. All pages/layouts live in `app/`. The path alias `@/*` maps to the project root.
+Letterboxd watchlist random movie picker. Scrapes a user's public watchlist and picks a random film to watch, with poster images from TMDB. All pages/layouts live in `app/`. The path alias `@/*` maps to the project root.
 
 - `app/layout.tsx` — Root layout, sets up fonts and metadata
-- `app/page.tsx` — Home page
+- `app/page.tsx` — Client component: username input, random pick UI, "Another one" button
+- `app/actions.ts` — Server actions: `fetchWatchlist` (scrapes Letterboxd), `fetchMoviePoster` (TMDB API)
 - `app/globals.css` — Tailwind import, CSS custom properties for theme colors, dark mode via `prefers-color-scheme`
-- `public/` — Static assets (SVGs)
+- `public/` — Static assets
+
+## Environment Variables
+
+- `TMDB_API_KEY` — required, set in `.env.local` (gitignored)
 
 ## Conventions
 
